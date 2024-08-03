@@ -1,75 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Vision Board</title>
-    <style>
-        .image-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Adjust the gap between images as needed */
-        }
-
-        .image-container {
-            flex: 1 1 calc(33.333% - 10px); /* Three images per row */
-            box-sizing: border-box;
-            max-width: 100px; /* Set a maximum width for the images */
-        }
-
-        .image-container img {
-            width: 100%;
-            height: auto;
-            object-fit: cover; /* Ensures the image covers the container without distortion */
-        }
-    </style>
+    <title>Index</title>
 </head>
 <body>
-    <h1>Vision Board</h1>
-
-    <h2>Health Status</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ health_form.as_p }}
-        <button type="submit" name="health_submit">Save Health Status</button>
-    </form>
-
-    {% if health_status %}
-        <p>Weight: {{ health_status.weight }} kg</p>
-        <div class="image-grid">
-            <div class="image-container">
-                <img src="{{ health_status.side_view.url }}" alt="Side View">
-            </div>
-            <div class="image-container">
-                <img src="{{ health_status.front_view.url }}" alt="Front View">
-            </div>
-            <div class="image-container">
-                <img src="{{ health_status.back_view.url }}" alt="Back View">
-            </div>
-        </div>
-    {% endif %}
-
-    <h2>Finance</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ finance_form.as_p }}
-        <button type="submit" name="finance_submit">Save Finance Status</button>
-    </form>
-
-    {% if finance %}
-        <p>Net Worth: ${{ finance.net_worth }}</p>
-    {% endif %}
-
-    <h2>Goals</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ goal_form.as_p }}
-        <button type="submit" name="goal_submit">Save Goal</button>
-    </form>
-
-    <ul>
+    <h2>Dashboard for {{ current_month }}/{{ current_year }}</h2>
+    <div>
+        <h3>Health Status</h3>
+        {% if health_status %}
+            <p>{{ health_status.details }}</p>
+        {% else %}
+            <p>No health status recorded for this month.</p>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Finance</h3>
+        {% if finance %}
+            <p>{{ finance.details }}</p>
+        {% else %}
+            <p>No finance data recorded for this month.</p>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Goals</h3>
         {% for goal in goals %}
-            <li>{{ goal.description }}</li>
+            <p>{{ goal.details }}</p>
         {% endfor %}
-    </ul>
+        {% if not goals %}
+            <p>No goals recorded for this month.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
