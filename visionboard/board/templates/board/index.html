@@ -44,5 +44,35 @@
             <li>{{ goal.description }}</li>
         {% endfor %}
     </ul>
+
+    <h2>Uploaded Images</h2>
+    <div class="image-grid">
+        {% for image in images %}
+            <div class="image-container">
+                <img src="{{ image.url }}" alt="Uploaded Image">
+            </div>
+        {% endfor %}
+    </div>
+    <style>
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Adjust the gap between images as needed */
+        }
+    
+        .image-container {
+            flex: 1 1 calc(33.333% - 10px); /* Three images per row */
+            box-sizing: border-box;
+        }
+    
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensures the image covers the container without distortion */
+        }
+    </style>
+
+</body>
+</html>
 </body>
 </html>
