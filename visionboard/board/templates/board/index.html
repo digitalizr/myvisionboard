@@ -3,6 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Vision Board</title>
+    <style>
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Adjust the gap between images as needed */
+        }
+
+        .image-container {
+            flex: 1 1 calc(33.333% - 10px); /* Three images per row */
+            box-sizing: border-box;
+            max-width: 100px; /* Set a maximum width for the images */
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensures the image covers the container without distortion */
+        }
+    </style>
 </head>
 <body>
     <h1>Vision Board</h1>
@@ -16,9 +35,17 @@
 
     {% if health_status %}
         <p>Weight: {{ health_status.weight }} kg</p>
-        <img src="{{ health_status.side_view.url }}" alt="Side View">
-        <img src="{{ health_status.front_view.url }}" alt="Front View">
-        <img src="{{ health_status.back_view.url }}" alt="Back View">
+        <div class="image-grid">
+            <div class="image-container">
+                <img src="{{ health_status.side_view.url }}" alt="Side View">
+            </div>
+            <div class="image-container">
+                <img src="{{ health_status.front_view.url }}" alt="Front View">
+            </div>
+            <div class="image-container">
+                <img src="{{ health_status.back_view.url }}" alt="Back View">
+            </div>
+        </div>
     {% endif %}
 
     <h2>Finance</h2>
@@ -44,35 +71,5 @@
             <li>{{ goal.description }}</li>
         {% endfor %}
     </ul>
-
-    <h2>Uploaded Images</h2>
-    <div class="image-grid">
-        {% for image in images %}
-            <div class="image-container">
-                <img src="{{ image.url }}" alt="Uploaded Image">
-            </div>
-        {% endfor %}
-    </div>
-    <style>
-        .image-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Adjust the gap between images as needed */
-        }
-    
-        .image-container {
-            flex: 1 1 calc(33.333% - 10px); /* Three images per row */
-            box-sizing: border-box;
-        }
-    
-        .image-container img {
-            width: 100%;
-            height: auto;
-            object-fit: cover; /* Ensures the image covers the container without distortion */
-        }
-    </style>
-
-</body>
-</html>
 </body>
 </html>
