@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vision Board</title>
+</head>
+<body>
+    <h1>Vision Board</h1>
+
+    <h2>Health Status</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ health_form.as_p }}
+        <button type="submit" name="health_submit">Save Health Status</button>
+    </form>
+
+    {% if health_status %}
+        <p>Weight: {{ health_status.weight }} kg</p>
+        <img src="{{ health_status.side_view.url }}" alt="Side View">
+        <img src="{{ health_status.front_view.url }}" alt="Front View">
+        <img src="{{ health_status.back_view.url }}" alt="Back View">
+    {% endif %}
+
+    <h2>Finance</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ finance_form.as_p }}
+        <button type="submit" name="finance_submit">Save Finance Status</button>
+    </form>
+
+    {% if finance %}
+        <p>Net Worth: ${{ finance.net_worth }}</p>
+    {% endif %}
+
+    <h2>Goals</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ goal_form.as_p }}
+        <button type="submit" name="goal_submit">Save Goal</button>
+    </form>
+
+    <ul>
+        {% for goal in goals %}
+            <li>{{ goal.description }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
