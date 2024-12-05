@@ -28,7 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'ec2-3-74-46-69.eu-central-1.compute.amazonaws.com',  # If using a public DNS
+    'ec2-3-74-46-69.eu-central-1.compute.amazonaws.com',
+    'ec2-3-76-225-244.eu-central-1.compute.amazonaws.com',
+    'test.digitalizrlab.com',   # If using a public DNS
     '3.74.46.69',       # If using a public IP
 ]
 
